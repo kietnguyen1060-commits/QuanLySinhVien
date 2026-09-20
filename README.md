@@ -37,7 +37,7 @@ Bài tập lập trình hướng đối tượng: chương trình quản lý dan
 
 1. Thêm sinh viên (kiểm tra trùng mã)
 2. Xóa sinh viên theo mã
-3. Sắp xếp: điểm giảm dần, điểm tăng dần, hoặc theo tên A→Z
+3. Sắp xếp: điểm giảm dần, điểm tăng dần, hoặc theo họ tên A→Z
 4. Hiển thị danh sách dạng bảng
 5. Tìm sinh viên theo mã
 6. Cộng điểm thưởng

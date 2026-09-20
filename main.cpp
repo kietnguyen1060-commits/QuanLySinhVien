@@ -99,7 +99,7 @@ void sapXep()
     cout << "\n--- SAP XEP ---\n";
     cout << " 1. Theo diem giam dan\n";
     cout << " 2. Theo diem tang dan\n";
-    cout << " 3. Theo ten (A -> Z)\n";
+    cout << " 3. Theo ho ten (A -> Z)\n";
     cout << " Chon: ";
 
     int chon;
@@ -112,8 +112,8 @@ void sapXep()
             bool doiCho = false;
             if      (chon == 1) doiCho = danhSach[j] < danhSach[j + 1];     // toan tu <
             else if (chon == 2) doiCho = danhSach[j] > danhSach[j + 1];     // toan tu >
-            else                doiCho = danhSach[j].tenRieng().inHoa()
-                                       > danhSach[j + 1].tenRieng().inHoa();
+            else                doiCho = danhSach[j].layHoTen().inHoa()
+                                       > danhSach[j + 1].layHoTen().inHoa();
 
             if (doiCho)
             {

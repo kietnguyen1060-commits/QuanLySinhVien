@@ -3,25 +3,11 @@
 
 using namespace std;
 
-// ---------- Khoi tao ----------
 SinhVien::SinhVien() : maSV(""), hoTen(""), lop(""), diem(0.0) {}
 
 SinhVien::SinhVien(const MyString& ma, const MyString& ten, const MyString& lop, double diem)
     : maSV(ma), hoTen(ten), lop(lop), diem(diem) {}
 
-// ---------- Nghiep vu ----------
-MyString SinhVien::tenRieng() const
-{
-    int viTri = -1;
-    for (int i = 0; i < hoTen.layDoDai(); i++)
-        if (hoTen[i] == ' ') viTri = i;         // vi tri dau cach cuoi cung
-
-    if (viTri < 0) return hoTen;
-
-    MyString kq;
-    for (int i = viTri + 1; i < hoTen.layDoDai(); i++) kq += hoTen[i];
-    return kq;
-}
 
 MyString SinhVien::xepLoai() const
 {
@@ -34,14 +20,17 @@ MyString SinhVien::xepLoai() const
 
 // ---------- Toan tu so sanh ----------
 bool SinhVien::operator==(const SinhVien& khac) const { return maSV.inHoa() == khac.maSV.inHoa(); }
-bool SinhVien::operator!=(const SinhVien& khac) const { return !(*this == khac); }
+bool SinhVien::operator!=(const SinhVien& khac) const
+{
+    return !(this->maSV.inHoa() == khac.maSV.inHoa());
+}
 bool SinhVien::operator< (const SinhVien& khac) const { return diem <  khac.diem; }
 bool SinhVien::operator> (const SinhVien& khac) const { return diem >  khac.diem; }
 
 // ---------- Toan tu + va += (cong diem thuong) ----------
 SinhVien SinhVien::operator+(double diemThuong) const
 {
-    SinhVien kq(*this);
+    SinhVien kq = *this;
     kq.diem += diemThuong;
     if (kq.diem > 10) kq.diem = 10;
     if (kq.diem < 0)  kq.diem = 0;
@@ -50,9 +39,12 @@ SinhVien SinhVien::operator+(double diemThuong) const
 
 SinhVien& SinhVien::operator+=(double diemThuong)
 {
-    *this = *this + diemThuong;
+    diem += diemThuong;                // this->diem, không cấp phát gì cả
+    if (diem > 10) diem = 10;
+    if (diem < 0)  diem = 0;
     return *this;
 }
+
 
 // ---------- Toan tu [] : lay thong tin theo chi so ----------
 MyString SinhVien::operator[](int i) const
@@ -73,7 +65,7 @@ ostream& operator<<(ostream& out, const SinhVien& sv)
         << setw(10) << sv.lop
         << right << fixed << setprecision(2) << setw(6) << sv.diem
         << "   " << left << setw(12) << sv.xepLoai();
-    return out;
+    return out; // viet lien tiep << 
 }
 
 // ---------- Toan tu nhap ----------
