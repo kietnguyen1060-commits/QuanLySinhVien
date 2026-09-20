@@ -20,23 +20,10 @@ MyString SinhVien::xepLoai() const
 
 // ---------- Toan tu so sanh ----------
 bool SinhVien::operator==(const SinhVien& khac) const { return maSV.inHoa() == khac.maSV.inHoa(); }
-bool SinhVien::operator!=(const SinhVien& khac) const
-{
-    return !(this->maSV.inHoa() == khac.maSV.inHoa());
-}
 bool SinhVien::operator< (const SinhVien& khac) const { return diem <  khac.diem; }
 bool SinhVien::operator> (const SinhVien& khac) const { return diem >  khac.diem; }
 
 // ---------- Toan tu + va += (cong diem thuong) ----------
-SinhVien SinhVien::operator+(double diemThuong) const
-{
-    SinhVien kq = *this;
-    kq.diem += diemThuong;
-    if (kq.diem > 10) kq.diem = 10;
-    if (kq.diem < 0)  kq.diem = 0;
-    return kq;
-}
-
 SinhVien& SinhVien::operator+=(double diemThuong)
 {
     diem += diemThuong;                // this->diem, không cấp phát gì cả

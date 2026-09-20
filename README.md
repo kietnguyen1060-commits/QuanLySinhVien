@@ -17,19 +17,18 @@ Bài tập lập trình hướng đối tượng: chương trình quản lý dan
 | Toán tử | Ý nghĩa |
 |---|---|
 | `=` | Gán chuỗi (từ `MyString` hoặc `const char*`), có chống tự gán |
-| `[]` | Truy cập ký tự theo chỉ số (bản `const` và không `const`) |
-| `+`, `+=` | Nối chuỗi |
-| `==`, `!=`, `<`, `>` | So sánh chuỗi theo thứ tự từ điển |
-| `!` | Kiểm tra chuỗi rỗng |
+| `+` | Nối hai chuỗi |
+| `+=` | Nối thêm một ký tự (dùng khi đọc từng ký tự lúc nhập) |
+| `==`, `>` | So sánh chuỗi theo thứ tự từ điển |
 | `<<`, `>>` | Xuất ra màn hình / nhập cả dòng (họ tên có dấu cách) |
 
 **`SinhVien`**
 
 | Toán tử | Ý nghĩa |
 |---|---|
-| `==`, `!=` | So sánh theo mã sinh viên (dùng để kiểm tra trùng mã khi thêm và tìm khi xóa) |
+| `==` | So sánh theo mã sinh viên (kiểm tra trùng mã khi thêm, tìm khi xóa) |
 | `<`, `>` | So sánh theo điểm (dùng cho sắp xếp) |
-| `+`, `+=` | Cộng điểm thưởng (tự giới hạn trong khoảng 0–10) |
+| `+=` | Cộng điểm thưởng (tự giới hạn trong khoảng 0–10) |
 | `[]` | Lấy thông tin theo chỉ số: `0` mã, `1` họ tên, `2` lớp, `3` xếp loại |
 | `<<`, `>>` | Xuất một dòng trong bảng / nhập thông tin sinh viên |
 

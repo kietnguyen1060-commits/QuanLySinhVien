@@ -2,10 +2,9 @@
 
 using namespace std;
 
-// ---------- Ham tien ich tu viet (thay cho <cstring>) ----------
 int MyString::tinhDoDai(const char* s)
 {
-    if (s == 0) return 0;
+    if (s == nullptr) return 0;
     int n = 0;
     while (s[n] != '\0') n++;
     return n;
@@ -73,21 +72,6 @@ MyString& MyString::operator=(const char* s)
     return *this;
 }
 
-// ---------- Toan tu [] ----------
-char& MyString::operator[](int i)
-{
-    static char rac = '\0';                   // tranh loi khi vuot chi so
-    if (i < 0 || i >= doDai) { rac = '\0'; return rac; }
-    return duLieu[i];
-}
-
-const char& MyString::operator[](int i) const
-{
-    static const char rong = '\0';
-    if (i < 0 || i >= doDai) return rong;
-    return duLieu[i];
-}
-
 // ---------- Toan tu + va += ----------
 MyString MyString::operator+(const MyString& khac) const
 {
@@ -103,12 +87,6 @@ MyString MyString::operator+(const MyString& khac) const
     return kq;
 }
 
-MyString& MyString::operator+=(const MyString& khac)
-{
-    *this = *this + khac;
-    return *this;
-}
-
 MyString& MyString::operator+=(char c)
 {
     char tam[2] = { c, '\0' };
@@ -118,15 +96,9 @@ MyString& MyString::operator+=(char c)
 
 // ---------- Toan tu so sanh ----------
 bool MyString::operator==(const MyString& k) const { return soSanh(duLieu, k.duLieu) == 0; }
-bool MyString::operator!=(const MyString& k) const { return soSanh(duLieu, k.duLieu) != 0; }
-bool MyString::operator< (const MyString& k) const { return soSanh(duLieu, k.duLieu) <  0; }
 bool MyString::operator> (const MyString& k) const { return soSanh(duLieu, k.duLieu) >  0; }
 
-bool MyString::operator!() const { return doDai == 0; }
-
 // ---------- Tien ich ----------
-int MyString::layDoDai() const { return doDai; }
-
 MyString MyString::inHoa() const
 {
     MyString kq(*this);

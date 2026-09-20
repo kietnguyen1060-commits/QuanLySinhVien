@@ -28,11 +28,9 @@ public:
     // da nang hoa toan tu 
 
     bool operator==(const SinhVien& khac) const;   
-    bool operator!=(const SinhVien& khac) const;
     bool operator< (const SinhVien& khac) const;   
     bool operator> (const SinhVien& khac) const;   
 
-    SinhVien  operator+(double diemThuong) const;  // cong diem thuong, tra ve ban sao
     SinhVien& operator+=(double diemThuong);       // cong diem thuong ngay tren doi tuong
 
     MyString operator[](int i) const;              // 0:ma  1:ho ten  2:lop  3:xep loai

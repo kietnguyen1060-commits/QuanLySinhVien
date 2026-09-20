@@ -1,8 +1,3 @@
-// =====================================================================
-//  QUAN LY SINH VIEN (C++ OOP) - them / xoa / sap xep
-//  Khong dung <string>: tu cai lop MyString va nap chong toan tu
-//  Bien dich: g++ -o QuanLySinhVien main.cpp MyString.cpp SinhVien.cpp
-// =====================================================================
 #include "SinhVien.h"
 #include <iomanip>
 
