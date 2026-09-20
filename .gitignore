@@ -1,0 +1,9 @@
+# File bien dich
+*.exe
+*.o
+*.obj
+*.out
+
+# Thu muc IDE
+.vscode/
+.vs/
