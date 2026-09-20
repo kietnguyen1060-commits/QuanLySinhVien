@@ -1,12 +1,12 @@
 # Quản lý sinh viên (C++ OOP)
 
-Bài tập lập trình hướng đối tượng: chương trình quản lý danh sách sinh viên viết bằng C++ thuần, **không dùng thư viện `<string>`/`<cstring>`** — tự cài đặt lớp chuỗi `MyString` bằng mảng `char*` cấp phát động và tự nạp chồng các toán tử.
+Bài tập lập trình hướng đối tượng: chương trình quản lý danh sách sinh viên viết bằng C++ thuần, **không dùng thư viện `<string>`/`<cstring>`** — tự cài đặt lớp chuỗi `MyString` bằng mảng ký tự và tự nạp chồng các toán tử.
 
 ## Cấu trúc
 
 | File | Nội dung |
 |---|---|
-| `MyString.h` / `MyString.cpp` | Lớp chuỗi tự cài: cấp phát động, hàm tạo sao chép, hàm hủy, tự viết `strlen`/`strcpy`/`strcmp` |
+| `MyString.h` / `MyString.cpp` | Lớp chuỗi tự cài bằng mảng `char[100]`, tự viết phần nối và so sánh chuỗi |
 | `SinhVien.h` / `SinhVien.cpp` | Lớp `SinhVien`: mã sinh viên, họ tên, lớp, điểm, xếp loại |
 | `main.cpp` | Mảng đối tượng `SinhVien` + menu chức năng |
 
@@ -16,7 +16,6 @@ Bài tập lập trình hướng đối tượng: chương trình quản lý dan
 
 | Toán tử | Ý nghĩa |
 |---|---|
-| `=` | Gán chuỗi, có chống tự gán và giải phóng vùng nhớ cũ |
 | `+` | Nối hai chuỗi |
 | `+=` | Nối thêm một ký tự (dùng khi đọc từng ký tự lúc nhập) |
 | `==`, `>` | So sánh chuỗi theo thứ tự từ điển |

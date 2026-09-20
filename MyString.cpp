@@ -2,94 +2,74 @@
 
 using namespace std;
 
-// ---------- Ba ham tien ich tu viet ----------
-int MyString::doDai(const char* s)
-{
-    int n = 0;
-    while (s[n] != '\0') n++;
-    return n;
-}
-
-void MyString::chep(char* dich, const char* nguon)
-{
-    int i = 0;
-    while (nguon[i] != '\0') { dich[i] = nguon[i]; i++; }
-    dich[i] = '\0';
-}
-
-int MyString::soSanh(const char* a, const char* b)
-{
-    int i = 0;
-    while (a[i] != '\0' && a[i] == b[i]) i++;
-    return a[i] - b[i];            // <0, =0 hoac >0
-}
-
-// ---------- Khoi tao / huy ----------
 MyString::MyString(const char* s)
 {
-    duLieu = new char[doDai(s) + 1];
-    chep(duLieu, s);
-}
-
-MyString::MyString(const MyString& khac)
-{
-    duLieu = new char[doDai(khac.duLieu) + 1];
-    chep(duLieu, khac.duLieu);
-}
-
-MyString::~MyString()
-{
-    delete[] duLieu;
-}
-
-// ---------- Toan tu gan ----------
-MyString& MyString::operator=(const MyString& khac)
-{
-    if (this != &khac)                       // tranh tu gan chinh minh
+    int i = 0;
+    while (s[i] != '\0' && i < MAX_KY_TU - 1)
     {
-        delete[] duLieu;                     // tra lai vung nho cu
-        duLieu = new char[doDai(khac.duLieu) + 1];
-        chep(duLieu, khac.duLieu);
+        duLieu[i] = s[i];
+        i++;
+    }
+    duLieu[i] = '\0';           // danh dau ket thuc chuoi
+}
+
+// ---------- Toan tu + : noi hai chuoi ----------
+MyString MyString::operator+(const MyString& khac) const
+{
+    MyString kq = *this;        // chep chuoi thu nhat sang ket qua
+
+    int i = 0;
+    while (kq.duLieu[i] != '\0') i++;               // tim vi tri cuoi chuoi
+
+    int j = 0;
+    while (khac.duLieu[j] != '\0' && i < MAX_KY_TU - 1)
+    {
+        kq.duLieu[i] = khac.duLieu[j];              // noi chuoi thu hai vao sau
+        i++;
+        j++;
+    }
+    kq.duLieu[i] = '\0';
+    return kq;
+}
+
+
+MyString& MyString::operator+=(char c)
+{
+    int i = 0;
+    while (duLieu[i] != '\0') i++;
+
+    if (i < MAX_KY_TU - 1)
+    {
+        duLieu[i]     = c;
+        duLieu[i + 1] = '\0';
     }
     return *this;
 }
 
-// ---------- Toan tu noi chuoi ----------
-MyString MyString::operator+(const MyString& khac) const
+bool MyString::operator==(const MyString& khac) const
 {
-    int n = doDai(duLieu);
-
-    char* tam = new char[n + doDai(khac.duLieu) + 1];
-    chep(tam, duLieu);                       // chep chuoi thu nhat
-    chep(tam + n, khac.duLieu);              // chep chuoi thu hai vao ngay sau
-
-    MyString kq(tam);
-    delete[] tam;
-    return kq;
+    int i = 0;
+    while (duLieu[i] != '\0' && duLieu[i] == khac.duLieu[i]) i++;
+    return duLieu[i] == khac.duLieu[i];             // cung dung o mot cho => giong nhau
 }
 
-MyString& MyString::operator+=(char c)
+bool MyString::operator>(const MyString& khac) const
 {
-    char tam[2] = { c, '\0' };
-    *this = *this + tam;                     // tam tu dong thanh MyString
-    return *this;
+    int i = 0;
+    while (duLieu[i] != '\0' && duLieu[i] == khac.duLieu[i]) i++;
+    return duLieu[i] > khac.duLieu[i];              // so ky tu dau tien khac nhau
 }
 
-// ---------- Toan tu so sanh ----------
-bool MyString::operator==(const MyString& khac) const { return soSanh(duLieu, khac.duLieu) == 0; }
-bool MyString::operator> (const MyString& khac) const { return soSanh(duLieu, khac.duLieu) >  0; }
 
-// ---------- Tien ich ----------
 MyString MyString::inHoa() const
 {
-    MyString kq(*this);
+    MyString kq = *this;
     for (int i = 0; kq.duLieu[i] != '\0'; i++)
         if (kq.duLieu[i] >= 'a' && kq.duLieu[i] <= 'z')
             kq.duLieu[i] = kq.duLieu[i] - 'a' + 'A';
     return kq;
 }
 
-// ---------- Nhap / xuat ----------
 ostream& operator<<(ostream& out, const MyString& s)
 {
     out << s.duLieu;
@@ -99,11 +79,11 @@ ostream& operator<<(ostream& out, const MyString& s)
 istream& operator>>(istream& in, MyString& s)
 {
     char c;
-    while (in.get(c))                        // bo qua ky tu trang dung truoc
+    while (in.get(c))                               // bo qua ky tu trang dung truoc
         if (c != '\n' && c != '\r' && c != ' ' && c != '\t') { in.putback(c); break; }
 
-    s = "";                                  // xoa noi dung cu
-    while (in.get(c) && c != '\n')           // doc ca dong, ke ca dau cach
-        if (c != '\r') s += c;
+    s = "";                                         // xoa noi dung cu
+    while (in.get(c) && c != '\n')
+        if (c != '\r') s += c;                      // dung toan tu += o tren
     return in;
 }

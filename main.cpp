@@ -1,7 +1,3 @@
-// =====================================================================
-//  QUAN LY SINH VIEN (C++ OOP) - them / xoa / sap xep
-//  Bien dich: g++ -o QuanLySinhVien main.cpp MyString.cpp SinhVien.cpp
-// =====================================================================
 #include "SinhVien.h"
 #include <iomanip>
 
@@ -12,7 +8,6 @@ const int MAX = 100;
 SinhVien danhSach[MAX];
 int      soLuong = 0;
 
-// Tra ve vi tri cua sinh vien co ma nay, -1 neu khong co
 int timViTri(const MyString& ma)
 {
     SinhVien can(ma, "", "", 0);                // doi tuong tam de so sanh
@@ -21,7 +16,6 @@ int timViTri(const MyString& ma)
     return -1;
 }
 
-// Hoi ma sinh vien roi tra ve vi tri, -1 kem thong bao neu khong tim thay
 int hoiViTri()
 {
     cout << " Nhap ma sinh vien: ";
@@ -33,7 +27,7 @@ int hoiViTri()
     return vt;
 }
 
-// ---------------------- Hien thi ----------------------
+
 void hienThi()
 {
     if (soLuong == 0) { cout << "\n   Danh sach rong!\n"; return; }
@@ -54,7 +48,7 @@ void hienThi()
     cout << " Tong so: " << soLuong << " sinh vien\n";
 }
 
-// ---------------------- Them ----------------------
+
 void them()
 {
     if (soLuong >= MAX) { cout << "\n   [!] Danh sach da day!\n"; return; }
@@ -74,7 +68,6 @@ void them()
     cout << "   => Da them " << sv.layHoTen() << "\n";
 }
 
-// ---------------------- Xoa ----------------------
 void xoa()
 {
     cout << "\n--- XOA SINH VIEN ---\n";
@@ -88,7 +81,6 @@ void xoa()
     soLuong--;
 }
 
-// ---------------------- Sap xep ----------------------
 void sapXep()
 {
     cout << "\n--- SAP XEP ---\n";
@@ -122,7 +114,7 @@ void sapXep()
     hienThi();
 }
 
-// ---------------------- Tim kiem ----------------------
+
 void tim()
 {
     cout << "\n--- TIM SINH VIEN ---\n";
@@ -137,7 +129,7 @@ void tim()
     cout << "   Xep loai     : " << danhSach[vt][3] << "\n";
 }
 
-// ---------------------- Cong diem thuong ----------------------
+
 void congDiemThuong()
 {
     cout << "\n--- CONG DIEM THUONG ---\n";
@@ -152,7 +144,6 @@ void congDiemThuong()
     cout << "   => " << danhSach[vt] << "\n";
 }
 
-// ---------------------- Chuong trinh chinh ----------------------
 int main()
 {
     int chon;
