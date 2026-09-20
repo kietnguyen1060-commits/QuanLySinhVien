@@ -3,41 +3,32 @@
 
 #include <iostream>
 
+// Lop chuoi tu cai dat, khong dung <string> va <cstring>
 class MyString
 {
 private:
-    char* duLieu;       
-    int   doDai;
+    char* duLieu;                                      // mang ky tu dong, ket thuc bang '\0'
 
-    static int  tinhDoDai(const char* s);                 // thay strlen
-    static void chepChuoi(char* dich, const char* nguon); // thay strcpy
-    static int  soSanh(const char* a, const char* b);     // thay strcmp
+    static int  doDai(const char* s);                  // thay strlen
+    static void chep(char* dich, const char* nguon);   // thay strcpy
+    static int  soSanh(const char* a, const char* b);  // thay strcmp
 
 public:
-
-    MyString();
-    MyString(const char* s);
-    MyString(const MyString& khac);
+    MyString(const char* s = "");                      // tao chuoi rong hoac tu chuoi C
+    MyString(const MyString& khac);                    // tao ban sao
     ~MyString();
 
-    
-    MyString& operator=(const MyString& khac);
-    MyString& operator=(const char* s);
+    MyString& operator=(const MyString& khac);         // gan
+    MyString  operator+(const MyString& khac) const;   // noi hai chuoi
+    MyString& operator+=(char c);                      // noi them mot ky tu
 
-    // Toan tu noi chuoi + va +=
-    MyString  operator+(const MyString& khac) const;
-    MyString& operator+=(char c);
+    bool operator==(const MyString& khac) const;       // so sanh bang
+    bool operator> (const MyString& khac) const;       // so sanh thu tu tu dien
 
-    // Toan tu so sanh
-    bool operator==(const MyString& khac) const;
-    bool operator> (const MyString& khac) const;
+    MyString inHoa() const;                            // doi sang chu in hoa
 
-    // Tien ich
-    MyString inHoa() const;
-
-    // Toan tu nhap / xuat
     friend std::ostream& operator<<(std::ostream& out, const MyString& s);
     friend std::istream& operator>>(std::istream& in,  MyString& s);
 };
 
-#endif // MYSTRING_H
+#endif

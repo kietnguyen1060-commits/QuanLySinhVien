@@ -16,7 +16,7 @@ Bài tập lập trình hướng đối tượng: chương trình quản lý dan
 
 | Toán tử | Ý nghĩa |
 |---|---|
-| `=` | Gán chuỗi (từ `MyString` hoặc `const char*`), có chống tự gán |
+| `=` | Gán chuỗi, có chống tự gán và giải phóng vùng nhớ cũ |
 | `+` | Nối hai chuỗi |
 | `+=` | Nối thêm một ký tự (dùng khi đọc từng ký tự lúc nhập) |
 | `==`, `>` | So sánh chuỗi theo thứ tự từ điển |

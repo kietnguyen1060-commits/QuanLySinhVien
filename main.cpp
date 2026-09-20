@@ -1,3 +1,7 @@
+// =====================================================================
+//  QUAN LY SINH VIEN (C++ OOP) - them / xoa / sap xep
+//  Bien dich: g++ -o QuanLySinhVien main.cpp MyString.cpp SinhVien.cpp
+// =====================================================================
 #include "SinhVien.h"
 #include <iomanip>
 
@@ -5,17 +9,34 @@ using namespace std;
 
 const int MAX = 100;
 
-SinhVien danhSach[MAX];     // mang cac doi tuong SinhVien
+SinhVien danhSach[MAX];
 int      soLuong = 0;
+
+// Tra ve vi tri cua sinh vien co ma nay, -1 neu khong co
+int timViTri(const MyString& ma)
+{
+    SinhVien can(ma, "", "", 0);                // doi tuong tam de so sanh
+    for (int i = 0; i < soLuong; i++)
+        if (danhSach[i] == can) return i;       // toan tu ==
+    return -1;
+}
+
+// Hoi ma sinh vien roi tra ve vi tri, -1 kem thong bao neu khong tim thay
+int hoiViTri()
+{
+    cout << " Nhap ma sinh vien: ";
+    MyString ma;
+    cin >> ma;
+
+    int vt = timViTri(ma);
+    if (vt < 0) cout << "   [!] Khong tim thay ma " << ma << "\n";
+    return vt;
+}
 
 // ---------------------- Hien thi ----------------------
 void hienThi()
 {
-    if (soLuong == 0)
-    {
-        cout << "\n   Danh sach rong!\n";
-        return;
-    }
+    if (soLuong == 0) { cout << "\n   Danh sach rong!\n"; return; }
 
     cout << "\n" << left
          << setw(5)  << "STT"
@@ -36,52 +57,33 @@ void hienThi()
 // ---------------------- Them ----------------------
 void them()
 {
-    if (soLuong >= MAX)
-    {
-        cout << "\n   [!] Danh sach da day!\n";
-        return;
-    }
+    if (soLuong >= MAX) { cout << "\n   [!] Danh sach da day!\n"; return; }
 
     cout << "\n--- THEM SINH VIEN ---\n";
     SinhVien sv;
-    cin >> sv;                                  // toan tu >> da nap chong
+    cin >> sv;                                  // toan tu >>
 
-    // Kiem tra trung ma bang toan tu ==
-    for (int i = 0; i < soLuong; i++)
-        if (danhSach[i] == sv)
-        {
-            cout << "   [!] Ma " << sv.layMa() << " da ton tai!\n";
-            return;
-        }
+    if (timViTri(sv.layMa()) >= 0)
+    {
+        cout << "   [!] Ma " << sv.layMa() << " da ton tai!\n";
+        return;
+    }
 
-    danhSach[soLuong] = sv;                     // toan tu = cua SinhVien / MyString
+    danhSach[soLuong] = sv;
     soLuong++;
-    cout << "   => Da them sinh vien " << sv.layHoTen() << "\n";
+    cout << "   => Da them " << sv.layHoTen() << "\n";
 }
 
 // ---------------------- Xoa ----------------------
 void xoa()
 {
-    if (soLuong == 0) { cout << "\n   Danh sach rong!\n"; return; }
-
     cout << "\n--- XOA SINH VIEN ---\n";
-    cout << " Nhap ma sinh vien can xoa: ";
-    MyString ma;
-    cin >> ma;
+    int vt = hoiViTri();
+    if (vt < 0) return;
 
-    SinhVien can(ma, "", "", 0);                // doi tuong tam de so sanh
-    int viTri = -1;
-    for (int i = 0; i < soLuong; i++)
-        if (danhSach[i] == can) { viTri = i; break; }   // toan tu ==
+    cout << "   Da xoa: " << danhSach[vt] << "\n";
 
-    if (viTri < 0)
-    {
-        cout << "   [!] Khong tim thay sinh vien co ma " << ma << "\n";
-        return;
-    }
-
-    cout << "   Da xoa: " << danhSach[viTri] << "\n";
-    for (int i = viTri; i < soLuong - 1; i++)
+    for (int i = vt; i < soLuong - 1; i++)
         danhSach[i] = danhSach[i + 1];          // don mang len
     soLuong--;
 }
@@ -89,8 +91,6 @@ void xoa()
 // ---------------------- Sap xep ----------------------
 void sapXep()
 {
-    if (soLuong == 0) { cout << "\n   Danh sach rong!\n"; return; }
-
     cout << "\n--- SAP XEP ---\n";
     cout << " 1. Theo diem giam dan\n";
     cout << " 2. Theo diem tang dan\n";
@@ -100,21 +100,21 @@ void sapXep()
     int chon;
     if (!(cin >> chon)) return;
 
-    // Sap xep noi bot, so sanh bang cac toan tu > , < cua lop SinhVien
+    // Sap xep noi bot, so sanh bang cac toan tu cua lop
     for (int i = 0; i < soLuong - 1; i++)
         for (int j = 0; j < soLuong - 1 - i; j++)
         {
-            bool doiCho = false;
-            if      (chon == 1) doiCho = danhSach[j] < danhSach[j + 1];     // toan tu <
-            else if (chon == 2) doiCho = danhSach[j] > danhSach[j + 1];     // toan tu >
+            bool doiCho;
+            if      (chon == 1) doiCho = danhSach[j] < danhSach[j + 1];   // toan tu <
+            else if (chon == 2) doiCho = danhSach[j] > danhSach[j + 1];   // toan tu >
             else                doiCho = danhSach[j].layHoTen().inHoa()
                                        > danhSach[j + 1].layHoTen().inHoa();
 
             if (doiCho)
             {
-                SinhVien tam      = danhSach[j];
-                danhSach[j]       = danhSach[j + 1];
-                danhSach[j + 1]   = tam;
+                SinhVien tam    = danhSach[j];
+                danhSach[j]     = danhSach[j + 1];
+                danhSach[j + 1] = tam;
             }
         }
 
@@ -126,47 +126,30 @@ void sapXep()
 void tim()
 {
     cout << "\n--- TIM SINH VIEN ---\n";
-    cout << " Nhap ma sinh vien: ";
-    MyString ma;
-    cin >> ma;
+    int vt = hoiViTri();
+    if (vt < 0) return;
 
-    for (int i = 0; i < soLuong; i++)
-        if (danhSach[i].layMa().inHoa() == ma.inHoa())
-        {
-            cout << "\n   Tim thay:\n";
-            cout << "   Ma sinh vien : " << danhSach[i][0] << "\n";   // toan tu []
-            cout << "   Ho va ten    : " << danhSach[i][1] << "\n";
-            cout << "   Lop          : " << danhSach[i][2] << "\n";
-            cout << "   Diem         : " << fixed << setprecision(2)
-                                         << danhSach[i].layDiem() << "\n";
-            cout << "   Xep loai     : " << danhSach[i][3] << "\n";
-            return;
-        }
-
-    cout << "   [!] Khong tim thay sinh vien co ma " << ma << "\n";
+    cout << "   Ma sinh vien : " << danhSach[vt][0] << "\n";     // toan tu []
+    cout << "   Ho va ten    : " << danhSach[vt][1] << "\n";
+    cout << "   Lop          : " << danhSach[vt][2] << "\n";
+    cout << "   Diem         : " << fixed << setprecision(2)
+                                 << danhSach[vt].layDiem() << "\n";
+    cout << "   Xep loai     : " << danhSach[vt][3] << "\n";
 }
 
 // ---------------------- Cong diem thuong ----------------------
 void congDiemThuong()
 {
     cout << "\n--- CONG DIEM THUONG ---\n";
-    cout << " Nhap ma sinh vien: ";
-    MyString ma;
-    cin >> ma;
+    int vt = hoiViTri();
+    if (vt < 0) return;
 
-    for (int i = 0; i < soLuong; i++)
-        if (danhSach[i].layMa().inHoa() == ma.inHoa())
-        {
-            cout << " Diem thuong: ";
-            double thuong;
-            if (!(cin >> thuong)) return;
+    cout << " Diem thuong: ";
+    double thuong;
+    if (!(cin >> thuong)) return;
 
-            danhSach[i] += thuong;              // toan tu += cua SinhVien
-            cout << "   => " << danhSach[i] << "\n";
-            return;
-        }
-
-    cout << "   [!] Khong tim thay sinh vien co ma " << ma << "\n";
+    danhSach[vt] += thuong;                     // toan tu +=
+    cout << "   => " << danhSach[vt] << "\n";
 }
 
 // ---------------------- Chuong trinh chinh ----------------------
@@ -183,23 +166,18 @@ int main()
         cout << " 5. Tim sinh vien theo ma\n";
         cout << " 6. Cong diem thuong\n";
         cout << " 0. Thoat\n";
-        cout << "=======================================\n";
         cout << " Chon chuc nang: ";
 
-        if (!(cin >> chon))                     // gap loi hoac het du lieu nhap
-        {
-            cout << "\n   Ket thuc chuong trinh.\n";
-            return 0;
-        }
+        if (!(cin >> chon)) return 0;           // gap loi hoac het du lieu nhap
 
         switch (chon)
         {
-        case 1: them();             break;
-        case 2: xoa();              break;
-        case 3: sapXep();           break;
-        case 4: hienThi();          break;
-        case 5: tim();              break;
-        case 6: congDiemThuong();   break;
+        case 1: them();           break;
+        case 2: xoa();            break;
+        case 3: sapXep();         break;
+        case 4: hienThi();        break;
+        case 5: tim();            break;
+        case 6: congDiemThuong(); break;
         case 0: cout << "\n   Tam biet!\n"; break;
         default: cout << "\n   [!] Lua chon khong hop le!\n";
         }
